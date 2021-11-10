@@ -59,6 +59,11 @@ static FILE *pusb_pad_open_device(t_pusb_options *opts,
 	if (!f)
 	{
 		log_debug("Cannot open device file: %s\n", strerror(errno));
+
+		if (errno == ENOENT) {
+			log_info("A required file or directory wasn't found on the configured device. (This is expected if you disconnected the device while it was mounted)");
+		}
+
 		return (NULL);
 	}
 	return (f);
